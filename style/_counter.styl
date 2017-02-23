@@ -1,0 +1,23 @@
+
+body
+  counter-reset: chapter
+
+section[data-type="chapter"]
+
+  counter-increment: chapter
+  position: relative
+  overflow: visible
+
+  &::before
+    content: counter(chapter)
+    position: absolute
+    top: -20pt
+    @media screen
+      top: 20pt
+      left: -20pt
+      font-size: 22pt
+    color: #ddd6d4
+    font-size: 32pt
+    font-weight: 700
+    line-height: 0
+
