@@ -90,3 +90,6 @@ gulp.task('watch', ['default', 'browsersync'], () => {
   gulp.watch('dest/*.html', ['bs-reload']);
 });
 
+gulp.task('watch:stylus', ['stylus'], () => {
+  gulp.watch('style/**/*.styl', ['stylus']);
+});

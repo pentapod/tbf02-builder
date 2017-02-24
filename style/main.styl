@@ -9,6 +9,7 @@
   font: $body-font
   line-height: $body-line-height
   color: #000000
+  word-break: break-all
 
 strong
   font-weight: 700
@@ -16,19 +17,26 @@ strong
 h1, h2, h3, h4, h5, h6
   margin: 0
   padding: 0
+  border-width: 0
   font-weight: 700
-  color: #2192b7
+  line-height: $header-line-height
+  color: $color-header-red
 
 h1
   margin-bottom: 8mm
-  font-size: 22pt
+  font-size: 20pt
+h1:not(:first-child)
+  margin-top: 8mm
 
 h2
   margin-top: 5mm
+  margin-bottom: 1mm
   font-size: 13pt
+  border-bottom: 0.5mm solid $color-bg-beige
 
 h3
   margin-top: 5mm
+  margin-bottom: 1mm
   font-size: 10pt
 
 h4
@@ -40,8 +48,13 @@ p
   text-align: justify
   text-indent: 1em
 
+p > img:first-child
+  position: relative
+  left: -1em
+
 a, a:hover, a:focus, a:visited
-  color: #2192b7
+  color: $color-link-blue
+  text-decoration: underline
 
 .clearfix:before
   content: " "
@@ -54,14 +67,16 @@ code, kbd, pre, samp
 figure
   margin: 0
 
-img
+img:not(.emoji)
+  display: block
   max-width: 100%
+  margin: $image-margin auto
   border-radius: 2px
-  border: 2px solid #2192b7
 
 table
-  display: inline-block
-  margin: $image-margin
+  display: table
+  max-width: 100%
+  margin: $image-margin auto
   border-collapse: collapse
   th:first-child
     text-align: right
@@ -69,82 +84,38 @@ table
     th
       text-align: center
   th, td
-    padding: 1.5mm 4mm 1.5mm 0
+    padding: 1mm 2mm 1mm 0
     &:first-child
-      padding-left: 4mm
-    border-top: 2px solid #2192b7
-    border-bottom: 2px solid #2192b7
+      padding-left: 2mm
+    background-color: transparent
+    border: 0
+    border-top: 0.5mm solid $color-header-red
+    border-bottom: 0.5mm solid $color-header-red
+
+code
+  padding: 0
 
 pre
   position: relative
-  padding: 1em 0 1em .5em
-  margin: 3pt 0 3pt 0.146in
-  background-color: #ddd6d4
-  white-space: pre
+  padding: 1em 0 1em .8em
+  margin: 1em 0
+  border: 0
+  border-radius: 0.2em
+  background-color: $color-bg-beige
+  font: $pre-font
+  line-height: $pre-line-height
+  white-space: pre-wrap
   tab-size: 4
   box-decoration-break: clone
 
-  margin-right: -50em
-  padding-right: 50em
-  margin-left: -49.854in
-  padding-left: 50in
-
 *:not(pre) > code
   color: #555
-  font-weight: bold
+  font-weight: 700
   margin: 0 0.2em
-  padding: 0.2em 0.3em 0.1em
+  padding: 0.1em 0.5em
+  border: 0
   border-radius: 0.2em
-  background-color: rgba(133, 119, 116, 0.25)
-
-.trivia
-  font-weight: 300
-
-.component, .api
-  padding: 2mm
-  margin-bottom: 3mm
-  position: relative
-  background-color: #ffffff
-  border-radius: 2px
-  //box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.15)
-  border: 2px solid #2192b7
-
-  badge($text, $color)
-    content: $text
-    background-color: $color
-    color: white
-    padding: 0 8pt
-    font-size: 10pt
-    font-weight: 700
-    position: absolute
-    right: -0.5mm
-    top: 4pt
-    border-radius: 2px 0 0 2px
-
-  h3
-    margin-top: 1mm
-    font-size: 12pt
-
-  &.ios-only:before
-    badge('iOS', #908e94)
-  &.android-only:before
-    badge('Android', #92b814)
-  &.deprecated:before
-    badge('deprecated', #ff0000)
-
-  .description
-    display: flex
-    flex-direction: column
-    &.row
-      flex-direction: row
-
-  figure
-    margin: 0 4mm
-    text-align: center
-
-  img
-    margin: 0
-    border: 0
+  background-color: $color-bg-beige
 
 .postscript-wrapper
   display: flex

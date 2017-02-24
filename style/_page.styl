@@ -33,26 +33,35 @@ h1, h2, h3
 pre
   break-inside: avoid
 
-.trivia
-  page-break-before: always
-  page-break-after: always
-
-.column-2
-  page-break-after: always
-
 @page
   size: $page-width $page-height
   bleed: $page-bleed
 
-//[data-type="chapter"]
-//  -epubx-flow-into: chapter
+@-epubx-page-template
 
-//[data-type="trivia"]
-//  -epubx-flow-into: trivia
+  .column-span
+    -epubx-flow-into column-span
+
+  .component, .api
+    break-inside: avoid
+
+  .page-outer-area
+    position: relative
+
+  .pull-right
+    left: ($page-margin-outer - $page-margin-inner)
+
+  .pull-left
+    left: ($page-margin-inner - $page-margin-outer)
+
+    & > p
+      margin: 3mm 0
+
+  .postscript-wrapper
+    height: $page-height - $page-margin-top - $page-margin-bottom
+
 
 @-epubx-page-master
-  .column-2
-    -epubx-flow-into: column-2
 
   @-epubx-partition
     -epubx-enabled: '-epubx-expr(page-number % 2 == 0)' % ()
@@ -79,67 +88,18 @@ pre
     background-color: #ddd6d4
     color: #ffffff
 
-  @-epubx-partition
-    -epubx-enabled: '-epubx-expr(page-number % 2 == 0)' % ()
-    -epubx-flow-from: column-2
-    left: ($page-margin-inner - $page-margin-outer)
 
-  @-epubx-partition trivia
-    -epubx-flow-from: trivia
-    base-page-layout(0, 0, 0, 0)
-
-  @-epubx-partition chapter
+  @-epubx-partition body
     -epubx-flow-from: body
+    //column-count: 2
+    column-width: 60mm
+    column-gap: $body-column-gap
     base-page-layout(
       $page-margin-top,
       $page-margin-bottom,
       $page-margin-left,
       $page-margin-right)
-/*
 
-  @-epubx-partition
-    -pubx-flow-from: body
-    background-color: #ffff55
-
-@-epubx-page-master trivia
-  @-epubx-partition
-    -epubx-flow-from: trivia
-    base-page-layout(0, 0, 0, 0)
-    background: $trivia-bg
-*/
-@-epubx-page-template
-  .column-2
-    //column-count: 2
-    //column-gap: 3mm
-    //column-fill: auto
-    display: flex
-    flex-wrap: wrap
-    flex-direction: column
-    position: relative
-    width: $page-width - 2 * $page-margin-inner
-    max-height: $page-height - $page-margin-top - $page-margin-bottom
-    & > *
-      width: 45%
-    &.first
-      max-height: 180mm
-    &.last
-      height: $page-height - $page-margin-top - $page-margin-bottom
-
-  .component, .api
-    break-inside: avoid
-
-  .page-outer-area
-    position: relative
-
-  .pull-right
-    left: ($page-margin-outer - $page-margin-inner)
-
-  .pull-left
-    left: ($page-margin-inner - $page-margin-outer)
-
-    & > p
-      margin: 3mm 0
-
-  .postscript-wrapper
-    height: $page-height - $page-margin-top - $page-margin-bottom
-
+  @-epubx-partition column-span
+    -epubx-flow-from: column-span
+    column-span: all
