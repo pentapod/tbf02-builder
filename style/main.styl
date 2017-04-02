@@ -20,33 +20,45 @@ h1, h2, h3, h4, h5, h6
   border-width: 0
   font-weight: 700
   line-height: $header-line-height
-  color: $color-header-red
 
 h1
-  margin-bottom: 8mm
-  font-size: 20pt
+  //margin-bottom: 8mm
+  margin: 0
+  //font-size: 20pt
+  font-size: 24px
 h1:not(:first-child)
   margin-top: 8mm
 
 h2
-  margin-top: 5mm
-  margin-bottom: 1mm
-  font-size: 13pt
-  border-bottom: 0.5mm solid $color-bg-beige
+  //margin-top: 5mm
+  //margin-bottom: 1mm
+  margin: 12px 0 6px 0
+  //font-size: 13pt
+  font-size: 17px
+  //border-bottom: 0.5mm solid $color-bg-beige
+  border-bottom: 0.5px solid $color-bg-beige
 
 h3
-  margin-top: 5mm
-  margin-bottom: 1mm
-  font-size: 10pt
+  //margin-top: 5mm
+  //margin-bottom: 1mm
+  margin: 8px 0 8px 0
+  //font-size: 10pt
+  font-size: 13px
 
 h4
-  margin-top: 3mm
-  font-size: 10pt
+  //margin-top: 3mm
+  margin: 0 0 8px 0
+  //font-size: 10pt
+  font-size: 13px
 
 p
-  margin: 0
+  margin: 0 0 8px 0
   text-align: justify
   text-indent: 1em
+
+hr
+  border: 0.5mm solid $color-bg-beige
+  margin: 8px 0
 
 a, a:hover, a:focus, a:visited
   color: $color-link-blue
@@ -93,8 +105,8 @@ code
 
 pre
   position: relative
-  padding: 1em 0 1em .8em
-  margin: 1em 0
+  padding: .4em 0 .4em .8em
+  margin: .8em 0
   border: 0
   border-radius: 0.2em
   background-color: $color-bg-beige
@@ -105,7 +117,7 @@ pre
   box-decoration-break: clone
 
 *:not(pre) > code
-  color: #555
+  color: #000
   font-weight: 700
   margin: 0 0.2em
   padding: 0.1em 0.5em
@@ -113,10 +125,87 @@ pre
   border-radius: 0.2em
   background-color: $color-bg-beige
 
-.postscript-wrapper
-  display: flex
-  flex-direction: column
-  justify-content: space-between
+nav#toc
+  ol
+    padding: 0
+
+  li
+    list-style-type: none
+    margin: 16px 0
+
+  a
+    display: flex
+    text-decoration: none
+    color: inherit
+
+  .title
+    flex-grow: 1
+
+  h4
+    font-size: 16px
+    margin-bottom: 4px
+
+  .author
+    font-size: 12px
+
+article.font_awesome
+  .flex-container
+    display: flex
+    flex-wrap: wrap
+
+  .item
+    background: #a09c8d
+    color: white
+    margin: 0.5px
+    padding: .2rem .1rem
+    text-align: center
+    min-width: 3.5rem
+    //flex-basis: 2rem
+    flex-grow: 1
+
+  .icon
+    font-size: 1.6rem
+    line-height: 1.9rem
+    display: inline-block
+
+  i.fa
+    margin: 0 .2rem
+
+  .comment
+    font-size: 6px
+    line-height: .9
+    letter-spacing: -0.02rem
+    //word-break: normal
+
+section#profile
+  .author
+    display: flex
+    margin: 8px 0
+    img
+      margin: 0 10px 8px 0
+
+  .author.inverse
+    flex-direction: row-reverse
+    img
+      margin: 0 0 8px 10px
+
+  img
+    width: 60px
+    height: 60px
+    border-radius: 30px
+
+  .profile
+    flex-grow: 1
+    h4
+      display: inline-block
+      margin-bottom: 4px
+
+section#colophon
+  font-weight: 400
+  position: relative
+
+  h2
+    border: 0
 
   ul.editions
     padding: 0
@@ -137,6 +226,16 @@ pre
       vertical-align: top
       border: 0
       padding-left: 0
+
+  .download-pass
+    position: absolute
+    right: 0
+    bottom: 0
+    padding: 0.1em 0.5em
+    font-weight: 700
+    color: #ffffff
+    background-color: #000000
+    border-radius: 0.2em
 
 @import '_page'
 

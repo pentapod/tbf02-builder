@@ -2,10 +2,20 @@
 
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
+import marked from 'marked';
 import Prism from 'node-prismjs';
 import pug from 'pug';
 import del from 'del';
 import browserSync from 'browser-sync';
+
+marked.setOptions({
+  highlight: function(code, lang, cb) {
+    const highlighted = (Prism.languages[lang])
+      ? Prism.highlight(code, Prism.languages[lang])
+      : code;
+    return highlighted;
+  }
+});
 
 pug.filters.code = function(str, options, locals) {
   const opts = Object.assign({}, options || {}, locals || {});
@@ -27,6 +37,10 @@ pug.filters.code = function(str, options, locals) {
        + `</pre>`;
 }
 
+pug.filters.marked = (str, options) => {
+  return marked(str, options);
+}
+
 const $ = gulpLoadPlugins();
 const plumberOpt = {
   errorHandler: function(err) {
@@ -37,15 +51,23 @@ const plumberOpt = {
 
 gulp.task('default', ['pug', 'assets', 'stylus']);
 
-gulp.task('pug', () =>
+gulp.task('pug', () => {
+  gulp.src('content/hyoshi.pug')
+    .pipe($.plumber(plumberOpt))
+    .pipe($.pug({
+      pug: pug,
+      pretty: true,
+    }))
+    .pipe(gulp.dest('dest/'));
+
   gulp.src('content/index.pug')
     .pipe($.plumber(plumberOpt))
     .pipe($.pug({
       pug: pug,
       pretty: true,
     }))
-    .pipe(gulp.dest('dest/'))
-);
+    .pipe(gulp.dest('dest/'));
+});
 
 gulp.task('assets', ['assets:delete'], () =>
   gulp.src('content/assets/**/*')
@@ -56,7 +78,14 @@ gulp.task('assets:delete',
   del.bind(null, ['dest/assets/**/*'])
 );
 
-gulp.task('stylus', () =>
+gulp.task('stylus', () => {
+  gulp.src('style/hyoshi.styl')
+    .pipe($.plumber(plumberOpt))
+    .pipe($.stylus({
+      'include css': true,
+    }))
+    .pipe(gulp.dest('dest/'));
+
   gulp.src('style/main.styl')
     .pipe($.plumber(plumberOpt))
     .pipe($.sourcemaps.init())
@@ -67,8 +96,8 @@ gulp.task('stylus', () =>
     .pipe(gulp.dest('dest/'))
     .pipe(browserSync.reload({
       stream: true,
-    }))
-);
+    }));
+});
 
 gulp.task('browsersync', () => {
   browserSync({
